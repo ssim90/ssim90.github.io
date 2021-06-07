@@ -48,8 +48,6 @@ const createScene =  () => {
     InitializeUI(scene, canvas);
     CreateStartUI(scene, videoPlane);
 
-    //Create4ButtonSelectionUI(scene, videoPlane)
-
     return scene;
 }
 
