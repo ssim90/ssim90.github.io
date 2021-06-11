@@ -39,14 +39,16 @@ function CreateStartUI (scene, videoPlane) {
     function addButton (name, text, address, onClick) {
         //var button = BABYLON.GUI.Button.CreateImageWithCenterTextButton(name, text, address);
         var button = BABYLON.GUI.Button.CreateSimpleButton(name, text);
-        const element = document.querySelector('.startbutton')
+        const element = document.querySelector('.button')
         const style = getComputedStyle(element)
         button.width = style.width;
         button.height = style.height;
         button.color = style.color;
         button.fontFaile = style.fontFamily;
         button.background = style.backgroundColor;
-        button.cornerRadius = 10;
+        button.margin = style.margin;
+        button.padding = style.padding;
+        button.cornerRadius = 3;
         button.thickness = 0;
         button.onPointerClickObservable.add(()=>{onClick();});
         panel.addControl(button);
@@ -125,14 +127,18 @@ function CreateVideoUI(scene, videoPlane) {
 
 function Create4ButtonSelectionUI(scene, videoPlane) {
     panel = new BABYLON.GUI.StackPanel();
+    panel.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
     panel.isVertical = false;
-    panel.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+    panel.height = "100px";
     
+    var alignmentStack = new BABYLON.GUI.StackPanel();
+    alignmentStack.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+    alignmentStack.addControl(panel);
+
     let subVideoIndex = 0;
 
     var selectPanel = new BABYLON.GUI.StackPanel();
     selectPanel.isVertical = false;
-    selectPanel.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
     selectPanel.top = "100px";
 
     function addButton(name, address, onClick) {
@@ -214,7 +220,10 @@ function Create4ButtonSelectionUI(scene, videoPlane) {
         hideUI();
         PlayVideo();
     })
+
     if(stage === stages.SELECT) {
+        AddMargin("50px", "50px");
+
         var skip = addVideoButton("skip", "assets/skip.png", ()=>{
             if(CheckEndStage()) {
                 stage = stages.END;
@@ -229,68 +238,46 @@ function Create4ButtonSelectionUI(scene, videoPlane) {
         })
     }
 
-    menuPlane.gui = panel;
+    menuPlane.gui = alignmentStack;
     menuADT.addControl(selectPanel);
-    menuADT.addControl(panel);
+    menuADT.addControl(alignmentStack);
 }
 
 function CreateTwoButtonPopupUI(scene, videoPlane) {
-    var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
-
     panel = new BABYLON.GUI.StackPanel();
     panel.isVertical = false;
-    //panel.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-    
-    function HidePopup() {
-        advancedTexture.removeControl(textblock);
-        advancedTexture.removeControl(yesButton);
-        advancedTexture.removeControl(noButton);
-    }
 
     var rectangle = new BABYLON.GUI.Rectangle("rect");
     rectangle.background = "#232736";
-    rectangle.color = "yellow";
-    rectangle.width = "500px";
-    rectangle.height = "300px";
+    rectangle.color = "#232736";
+    rectangle.width = "550px";
+    rectangle.height = "400px";
     panel.addControl(rectangle);
 
     var textblock = new BABYLON.GUI.TextBlock();
-    textblock.text = "Fire proofing?";
+    textblock.text = "Do you have a Fire proofing?";
     textblock.fontSize = 24;
-    textblock.top = -100;
+    textblock.top = -50;
     textblock.color = "white";
     rectangle.addControl(textblock);
 
-    var yesButton = BABYLON.GUI.Button.CreateSimpleButton("yesButton", "Yes");
-    yesButton.width = "100px";
-    yesButton.height = "40px";
-    yesButton.color = "Black";
-    yesButton.background = "white";
-    yesButton.left = "-100px";
-    yesButton.top = "30px";
-    yesButton.onPointerClickObservable.add(()=>{
+    var yesButton = addSelectionButton("yesButton", "YES", "-100px", () => {
         ++currentVideo;
         videoPlane.material = SetVideoMaterial(scene);
-        HidePopup();
+        HideUI();
         PlayVideo();
-    })
+    });
 
     rectangle.addControl(yesButton); 
 
-    var noButton = BABYLON.GUI.Button.CreateSimpleButton("noButton", "No");
-    noButton.width = "100px";
-    noButton.height = "40px";
-    noButton.color = "Black";
-    noButton.background = "white";
-    noButton.left = "100px";
-    noButton.top = "30px";
-    noButton.onPointerClickObservable.add(()=>{
+    var noButton = addSelectionButton("noButton", "NO", "100px", () => {
         ++currentVideo;
         ++currentVideo;
         videoPlane.material = SetVideoMaterial(scene);
-        HidePopup();
+        HideUI();
         PlayVideo();
-    })
+    });
+
     rectangle.addControl(noButton); 
 
     menuPlane.gui = panel;
@@ -344,6 +331,28 @@ function addVideoButton(name, address, onClick) {
 
 function addBigImageButton(name, address, onClick) {
 
+}
+
+function addSelectionButton(name, label, left, onClick) {
+    const element = document.querySelector('.button');
+    const style = getComputedStyle(element);
+
+    var button = BABYLON.GUI.Button.CreateSimpleButton(name, label);
+    button.width = style.width;
+    button.height = style.height;
+    button.color = style.color;
+    button.background = style.backgroundColor;
+    button.fontFamily = style.fontFamily;
+    button.margin = style.margin;
+    button.padding = style.padding;
+    button.cornerRadius = 3;
+    button.left = left;
+    button.top = "80px";
+    button.onPointerClickObservable.add(()=> {
+        onClick();
+    })
+
+    return button;
 }
 
 function HideUI(UICanvas = null) {
