@@ -2,7 +2,6 @@ var menuPlane;
 var menuADT;
 
 function InitializeUI(scene, canvas) {
-    console.debug(canvas.width);
     var planeOpts = {
         height: 5.4762, 
         width: 7.3967,
@@ -282,6 +281,134 @@ function CreateTwoButtonPopupUI(scene, videoPlane) {
 
     menuPlane.gui = panel;
     menuADT.addControl(panel);
+}
+
+function Create4ButtonSelectionUI2(scene, videoPlane) {
+    panel = new BABYLON.GUI.StackPanel();
+    panel.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+    panel.isVertical = false;
+    panel.height = "100px";
+    
+    var alignmentStack = new BABYLON.GUI.StackPanel();
+    alignmentStack.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+    alignmentStack.addControl(panel);
+
+    let subVideoIndex = 0;
+
+    var selectPanel = new BABYLON.GUI.StackPanel();
+    selectPanel.isVertical = false;
+    selectPanel.top = "100px";
+
+    function addButton(name, address, onClick) {
+        var button = BABYLON.GUI.Button.CreateImageOnlyButton("but", "");
+    button.width = "250px";
+    button.height = "500px";
+    button.background = "white";
+    button.onPointerClickObservable.add(()=>{
+        onClick();
+    })
+    selectPanel.addControl(button);
+ 
+        var Button = BABYLON.GUI.Button.CreateImageOnlyButton(name, address);
+        const element = document.querySelector('.videobutton')
+        const style = getComputedStyle(element)
+        Button.width =  style.width;
+        Button.height = style.height;
+        Button.background = "white";
+    
+        Button.onPointerClickObservable.add(()=>{
+            onClick();
+        })
+    
+        button.addControl(Button);
+        //selectPanel.addControl(Button);
+        return Button;
+    }
+
+    function addMargin() {
+        var margin = new BABYLON.GUI.Rectangle();
+        margin.width = "50px";
+        margin.height = "50px";
+        margin.alpha = 0;
+        selectPanel.addControl(margin);
+    }
+
+    function selectVideo() {
+        if(videotype == videotypes.WATERPROOF) {
+            subVideoTextures = subWaterproofTextures;
+        } else {
+            subVideoTextures = subNonWaterproofTextures;
+        }
+
+        if(currentVideo > 4) {
+            subVideoIndex = 4;
+        }
+    }
+
+    function hideUI() {
+        menuADT.removeControl(selectPanel);
+        HideUI();
+    } 
+
+    var button1 = addButton("btn1", "assets/1.png", ()=>{
+        selectVideo();
+        videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex);
+        hideUI();
+        PlayVideo();
+    });
+    //addMargin();
+    var button2 = addButton("btn1", "assets/2.png", ()=>{
+        selectVideo();
+        videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex + 1);
+        hideUI();
+        PlayVideo();
+    });
+    //addMargin();
+    var button3 = addButton("btn1", "assets/3.png", ()=>{
+        selectVideo();
+        videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex + 2);
+        hideUI();
+        PlayVideo();
+    });
+    //addMargin();
+    var button4 = addButton("btn1", "assets/4.png", ()=>{
+        selectVideo();
+        videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex + 3);
+        hideUI();
+        PlayVideo();
+    });
+
+    var back = addVideoButton("back", "assets/back.png", ()=>{
+        if(stage == stages.SELECT) {
+
+        } else {
+            --currentVideo;
+        }
+        videoPlane.material = SetVideoMaterial(scene);
+        hideUI();
+        PlayVideo();
+    })
+
+    if(stage === stages.SELECT) {
+        AddMargin("50px", "50px");
+
+        var skip = addVideoButton("skip", "assets/skip.png", ()=>{
+            if(CheckEndStage()) {
+                stage = stages.END;
+                hideUI();
+                CreateEndUI(scene, videoPlane);
+            } else {
+                ++currentVideo;
+                videoPlane.material = SetVideoMaterial(scene);
+                hideUI();
+                PlayVideo();
+            }
+        })
+    }
+
+    menuPlane.gui = alignmentStack;
+    menuADT.addControl(selectPanel);
+    menuADT.addControl(alignmentStack);
 }
 
 function CreateEndUI(scene, videoPlane) {

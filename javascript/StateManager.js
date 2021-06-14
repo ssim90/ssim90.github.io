@@ -58,8 +58,10 @@ function CheckNextStepForNonWaterproof(scene, videoPlane) {
             if(currentVideo == 2 || currentVideo ==  5) {
                 if(stage == stages.END) {
                     CreateEndUI(scene, videoPlane);
-                } else {
+                } else if (currentVideo == 2) {
                     Create4ButtonSelectionUI(scene, videoPlane);
+                } else {
+                    Create4ButtonSelectionUI2(scene,videoPlane);
                 }
 
             } else if(currentVideo == 3) {
