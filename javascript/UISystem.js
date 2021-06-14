@@ -411,7 +411,7 @@ function Create4ButtonSelectionUI2(scene, videoPlane) {
 
     var text1 = new BABYLON.GUI.TextBlock();
     text1.text = "Installation?";
-    text1.color = "black";
+    text1.color = "white";
     text1.fontFamily = "Raleway";
     text1.fontSize = 50;
     text1.top = "-450px";
