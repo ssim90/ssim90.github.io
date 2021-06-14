@@ -297,24 +297,27 @@ function Create4ButtonSelectionUI2(scene, videoPlane) {
 
     var selectPanel = new BABYLON.GUI.StackPanel();
     selectPanel.isVertical = false;
-    selectPanel.top = "100px";
+    selectPanel.top = "-50px";
 
     function addButton(name, address, onClick) {
         var button = BABYLON.GUI.Button.CreateImageOnlyButton("but", "");
     button.width = "250px";
-    button.height = "500px";
+    button.height = "700px";
     button.background = "white";
+    button.cornerRadius = 10;
     button.onPointerClickObservable.add(()=>{
         onClick();
     })
     selectPanel.addControl(button);
  
         var Button = BABYLON.GUI.Button.CreateImageOnlyButton(name, address);
-        const element = document.querySelector('.videobutton')
+        const element = document.querySelector('.picturebutton')
         const style = getComputedStyle(element)
         Button.width =  style.width;
         Button.height = style.height;
+        Button.cornerRadius = 10;
         Button.background = "white";
+        Button.top = "-40px";
     
         Button.onPointerClickObservable.add(()=>{
             onClick();
@@ -327,8 +330,8 @@ function Create4ButtonSelectionUI2(scene, videoPlane) {
 
     function addMargin() {
         var margin = new BABYLON.GUI.Rectangle();
-        margin.width = "50px";
-        margin.height = "50px";
+        margin.width = "5px";
+        //margin.height = "50px";
         margin.alpha = 0;
         selectPanel.addControl(margin);
     }
@@ -350,28 +353,28 @@ function Create4ButtonSelectionUI2(scene, videoPlane) {
         HideUI();
     } 
 
-    var button1 = addButton("btn1", "assets/1.png", ()=>{
+    var button1 = addButton("btn1", "assets/1.jpg", ()=>{
         selectVideo();
         videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex);
         hideUI();
         PlayVideo();
     });
-    //addMargin();
-    var button2 = addButton("btn1", "assets/2.png", ()=>{
+    addMargin();
+    var button2 = addButton("btn1", "assets/2.jpg", ()=>{
         selectVideo();
         videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex + 1);
         hideUI();
         PlayVideo();
     });
-    //addMargin();
-    var button3 = addButton("btn1", "assets/3.png", ()=>{
+    addMargin();
+    var button3 = addButton("btn1", "assets/3.jpg", ()=>{
         selectVideo();
         videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex + 2);
         hideUI();
         PlayVideo();
     });
-    //addMargin();
-    var button4 = addButton("btn1", "assets/4.png", ()=>{
+    addMargin();
+    var button4 = addButton("btn1", "assets/4.jpg", ()=>{
         selectVideo();
         videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex + 3);
         hideUI();
@@ -406,9 +409,18 @@ function Create4ButtonSelectionUI2(scene, videoPlane) {
         })
     }
 
+    var text1 = new BABYLON.GUI.TextBlock();
+    text1.text = "Installation?";
+    text1.color = "black";
+    text1.fontFamily = "Raleway";
+    text1.fontSize = 50;
+    text1.top = "-450px";
+    text1.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+
     menuPlane.gui = alignmentStack;
     menuADT.addControl(selectPanel);
     menuADT.addControl(alignmentStack);
+    menuADT.addControl(text1);
 }
 
 function CreateEndUI(scene, videoPlane) {
