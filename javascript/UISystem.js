@@ -350,6 +350,7 @@ function Create4ButtonSelectionUI2(scene, videoPlane) {
 
     function hideUI() {
         menuADT.removeControl(selectPanel);
+        menuADT.removeControl(text1);
         HideUI();
     } 
 
