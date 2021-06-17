@@ -181,28 +181,28 @@ function Create4ButtonSelectionUI(scene, videoPlane) {
         HideUI();
     } 
 
-    var button1 = addButton("btn1", "assets/1.png", ()=>{
+    var button1 = AddBasicButton("btn1", "Multichannel", selectPanel, ()=>{
         selectVideo();
         videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex);
         hideUI();
         PlayVideo();
     });
     addMargin();
-    var button2 = addButton("btn1", "assets/2.png", ()=>{
+    var button2 = AddBasicButton("btn2", "Ducts", selectPanel, ()=>{
         selectVideo();
         videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex + 1);
         hideUI();
         PlayVideo();
     });
     addMargin();
-    var button3 = addButton("btn1", "assets/3.png", ()=>{
+    var button3 = AddBasicButton("btn3", "ProTrough", selectPanel, ()=>{
         selectVideo();
         videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex + 2);
         hideUI();
         PlayVideo();
     });
     addMargin();
-    var button4 = addButton("btn1", "assets/4.png", ()=>{
+    var button4 = AddBasicButton("btn4", "Other", selectPanel, ()=>{
         selectVideo();
         videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex + 3);
         hideUI();
@@ -301,14 +301,14 @@ function Create4ButtonSelectionUI2(scene, videoPlane) {
 
     function addButton(name, address, onClick) {
         var button = BABYLON.GUI.Button.CreateImageOnlyButton("but", "");
-    button.width = "250px";
-    button.height = "700px";
-    button.background = "white";
-    button.cornerRadius = 10;
-    button.onPointerClickObservable.add(()=>{
-        onClick();
-    })
-    selectPanel.addControl(button);
+        button.width = "250px";
+        button.height = "700px";
+        button.background = "white";
+        button.cornerRadius = 10;
+        button.onPointerClickObservable.add(()=>{
+            onClick();
+        })
+        selectPanel.addControl(button);
  
         var Button = BABYLON.GUI.Button.CreateImageOnlyButton(name, address);
         const element = document.querySelector('.picturebutton')
@@ -422,6 +422,25 @@ function Create4ButtonSelectionUI2(scene, videoPlane) {
     menuADT.addControl(selectPanel);
     menuADT.addControl(alignmentStack);
     menuADT.addControl(text1);
+}
+
+function AddBasicButton (name, text, panel, onClick) {
+    //var button = BABYLON.GUI.Button.CreateImageWithCenterTextButton(name, text, address);
+    var button = BABYLON.GUI.Button.CreateSimpleButton(name, text);
+    const element = document.querySelector('.button')
+    const style = getComputedStyle(element)
+    button.width = style.width;
+    button.height = style.height;
+    button.color = style.color;
+    button.fontFaile = style.fontFamily;
+    button.background = style.backgroundColor;
+    button.margin = style.margin;
+    button.padding = style.padding;
+    button.cornerRadius = 3;
+    button.thickness = 0;
+    button.onPointerClickObservable.add(()=>{onClick();});
+    panel.addControl(button);
+    return button;
 }
 
 function CreateEndUI(scene, videoPlane) {
