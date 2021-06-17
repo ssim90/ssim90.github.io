@@ -1,10 +1,10 @@
 var waterproof = ["assets/Step1_text.mp4","assets/Waterproof/Waterproof_Step2_text.mp4","assets/Waterproof/Waterproof_Step3_text.mp4",
-                    "assets/Waterproof/Placeholder_Step5-Waterproof.mp4","assets/Waterproof/Placeholder_Step6-Waterproof.mp4","assets/Waterproof/Placeholder_Step7-Waterproof.mp4",
+                    "assets/Waterproof/Waterproof_Step5_text.mp4","assets/Waterproof/Placeholder_Step6-Waterproof.mp4","assets/Waterproof/Placeholder_Step7-Waterproof.mp4",
                     "assets/Waterproof/Placeholder_Step8-Waterproof.mp4"]
 var subWaterproof = ["assets/Waterproof/Waterproof_Step4.1_text.mp4","assets/Waterproof/Waterproof_Step4.2_text.mp4","assets/Waterproof/Waterproof_Step4.3_text.mp4","assets/Waterproof/Waterproof_Step4.4_text.mp4",
                      "assets/Waterproof/Placeholder_Step9.1-Waterproof.mp4","assets/Waterproof/Placeholder_Step9.2-Waterproof.mp4","assets/Waterproof/Placeholder_Step9.3-Waterproof.mp4","assets/Waterproof/Placeholder_Step9.4-Waterproof.mp4"]
 var nonWaterproof = ["assets/Step1_text.mp4","assets/Non-Waterproof/Non-Waterproof_Step2_text.mp4","assets/Non-Waterproof/Non-Waterproof_Step3_text.mp4",
-                     "assets/Non-Waterproof/Placeholder_Step5-Non-Waterproof.mp4","assets/Non-Waterproof/Placeholder_Step5.5-Non-Waterproof.mp4","assets/Non-Waterproof/Placeholder_Step6-Non-Waterproof.mp4"]
+                     "assets/Non-Waterproof/Non-Waterproof_Step5_text.mp4","assets/Non-Waterproof/Non-Waterproof_Step5.5_text.mp4","assets/Non-Waterproof/Placeholder_Step6-Non-Waterproof.mp4"]
 var subNonWaterproof = ["assets/Non-Waterproof/Non-Waterproof_Step4.1_text.mp4","assets/Non-Waterproof/Non-Waterproof_Step4.2_text.mp4","assets/Non-Waterproof/Non-Waterproof_Step4.3_text.mp4","assets/Non-Waterproof/Non-Waterproof_Step4.4_text.mp4",
                         "assets/Non-Waterproof/Placeholder_Step7.1-Non-Waterproof.mp4","assets/Non-Waterproof/Placeholder_Step7.2-Non-Waterproof.mp4","assets/Non-Waterproof/Placeholder_Step7.3-Non-Waterproof.mp4","assets/Non-Waterproof/Placeholder_Step7.4-Non-Waterproof.mp4"]
 var waterproofTextures = []
