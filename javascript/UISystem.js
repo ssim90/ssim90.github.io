@@ -44,7 +44,7 @@ function CreateStartUI (scene, videoPlane) {
         HideUI(UICanvas);
         PlayVideo();
     });
-    AddMargin("100px", "50px");
+    AddMargin("100px", "50px", panel);
     AddBasicButton("butt2", "Non-Waterproof", panel,
     function () {
         videotype = videotypes.NONWATERPROOF;
@@ -86,7 +86,7 @@ function CreateVideoUI(scene, videoPlane) {
             }
         })
 
-        AddMargin("50px", "50px");
+        AddMargin("50px", "50px", panel);
     }
 
     var replay = AddBasicButtonOnPlane("replay", "Replay", panel, ()=>{
@@ -95,7 +95,7 @@ function CreateVideoUI(scene, videoPlane) {
         PlayVideo();
     })
 
-    AddMargin("50px", "50px");
+    AddMargin("50px", "50px", panel);
 
     var skip = AddBasicButtonOnPlane("skip", "Next", panel, ()=>{
         ++currentVideo;
@@ -121,14 +121,6 @@ function Create4ButtonSelectionUI(scene, videoPlane) {
     selectPanel.isVertical = false;
     selectPanel.top = "100px";
 
-    function addMargin() {
-        var margin = new BABYLON.GUI.Rectangle();
-        margin.width = "50px";
-        margin.height = "50px";
-        margin.alpha = 0;
-        selectPanel.addControl(margin);
-    }
-
     function selectVideo() {
         if(videotype == videotypes.WATERPROOF) {
             subVideoTextures = subWaterproofTextures;
@@ -152,21 +144,21 @@ function Create4ButtonSelectionUI(scene, videoPlane) {
         hideUI();
         PlayVideo();
     });
-    addMargin();
+    AddMargin("50px", "50px", selectPanel);
     var button2 = AddBasicButtonOnPlane("btn2", "Ducts", selectPanel, ()=>{
         selectVideo();
         videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex + 1);
         hideUI();
         PlayVideo();
     });
-    addMargin();
+    AddMargin("50px", "50px", selectPanel);
     var button3 = AddBasicButtonOnPlane("btn3", "ProTrough", selectPanel, ()=>{
         selectVideo();
         videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex + 2);
         hideUI();
         PlayVideo();
     });
-    addMargin();
+    AddMargin("50px", "50px", selectPanel);
     var button4 = AddBasicButtonOnPlane("btn4", "Other", selectPanel, ()=>{
         selectVideo();
         videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex + 3);
@@ -186,7 +178,7 @@ function Create4ButtonSelectionUI(scene, videoPlane) {
     })
 
     if(stage === stages.SELECT) {
-        AddMargin("50px", "50px");
+        AddMargin("50px", "50px", panel);
 
         var skip = AddBasicButtonOnPlane("skip", "NEXT", panel, ()=>{
             if(CheckEndStage()) {
@@ -225,7 +217,7 @@ function CreateTwoButtonPopupUI(scene, videoPlane) {
     textblock.color = "white";
     rectangle.addControl(textblock);
 
-    var yesButton = addSelectionButton("yesButton", "YES", "-100px", () => {
+    var yesButton = AddSelectionButton("yesButton", "YES", "-100px", () => {
         ++currentVideo;
         videoPlane.material = SetVideoMaterial(scene);
         HideUI();
@@ -234,7 +226,7 @@ function CreateTwoButtonPopupUI(scene, videoPlane) {
 
     rectangle.addControl(yesButton); 
 
-    var noButton = addSelectionButton("noButton", "NO", "100px", () => {
+    var noButton = AddSelectionButton("noButton", "NO", "100px", () => {
         ++currentVideo;
         ++currentVideo;
         videoPlane.material = SetVideoMaterial(scene);
@@ -292,13 +284,6 @@ function Create4ButtonSelectionUI2(scene, videoPlane) {
         return Button;
     }
 
-    function addMargin() {
-        var margin = new BABYLON.GUI.Rectangle();
-        margin.width = "5px";
-        margin.alpha = 0;
-        selectPanel.addControl(margin);
-    }
-
     function selectVideo() {
         if(videotype == videotypes.WATERPROOF) {
             subVideoTextures = subWaterproofTextures;
@@ -323,21 +308,21 @@ function Create4ButtonSelectionUI2(scene, videoPlane) {
         hideUI();
         PlayVideo();
     });
-    addMargin();
+    AddMargin("5px","0px", selectPanel);
     var button2 = addButton("btn1", "assets/2.jpg", ()=>{
         selectVideo();
         videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex + 1);
         hideUI();
         PlayVideo();
     });
-    addMargin();
+    AddMargin("5px","0px", selectPanel);
     var button3 = addButton("btn1", "assets/3.jpg", ()=>{
         selectVideo();
         videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex + 2);
         hideUI();
         PlayVideo();
     });
-    addMargin();
+    AddMargin("5px","0px", selectPanel);
     var button4 = addButton("btn1", "assets/4.jpg", ()=>{
         selectVideo();
         videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex + 3);
@@ -357,7 +342,7 @@ function Create4ButtonSelectionUI2(scene, videoPlane) {
     })
 
     if(stage === stages.SELECT) {
-        AddMargin("50px", "50px");
+        AddMargin("50px", "50px", panel);
 
         var skip = AddBasicButtonOnPlane("skip", "Next", panel, ()=>{
             if(CheckEndStage()) {
@@ -453,23 +438,7 @@ function BackButtonAction(scene, videoPlane, UICanvas) {
     }
 }
 
-function addVideoButton(name, address, onClick) {
-    var Button = BABYLON.GUI.Button.CreateImageOnlyButton(name, address);
-    const element = document.querySelector('.videobutton')
-    const style = getComputedStyle(element)
-    Button.width = style.width;
-    Button.height = style.height;
-    Button.background = "white";
-
-    Button.onPointerClickObservable.add(()=>{
-        onClick();
-    })
-
-    panel.addControl(Button);
-    return Button;
-}
-
-function addSelectionButton(name, label, left, onClick) {
+function AddSelectionButton(name, label, left, onClick) {
     const element = document.querySelector('.button');
     const style = getComputedStyle(element);
 
@@ -501,7 +470,7 @@ function HideUI(UICanvas = null) {
     }
 }
 
-function AddMargin(width, height) {
+function AddMargin(width, height, panel) {
     var margin = new BABYLON.GUI.Rectangle();
     margin.width = width;
     margin.height = height;
