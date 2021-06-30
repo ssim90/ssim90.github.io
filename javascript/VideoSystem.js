@@ -1,11 +1,11 @@
 var waterproof = ["assets/Step1.mp4","assets/Waterproof/Step2_W.mp4","assets/Waterproof/Step3_W.mp4",
                     "assets/Waterproof/Waterproof_Step5_text.mp4","assets/Waterproof/Waterproof_Step6_text.mp4","assets/Waterproof/Waterproof_Step7_text.mp4",
                     "assets/Waterproof/Waterproof_Step8_text.mp4"]
-var subWaterproof = ["assets/Waterproof/Waterproof_Step4.1_text.mp4","assets/Waterproof/Waterproof_Step4.2_text.mp4","assets/Waterproof/Waterproof_Step4.3_text.mp4","assets/Waterproof/Waterproof_Step4.4_text.mp4",
+var subWaterproof = ["assets/Waterproof/Step4-1_W.mp4","assets/Waterproof/Step4-2_W.mp4","assets/Waterproof/Step4-3_W.mp4","assets/Waterproof/Step4-4_W.mp4",
                      "assets/Waterproof/Waterproof_Step9.1_text.mp4","assets/Waterproof/Waterproof_Step9.2_text.mp4","assets/Waterproof/Waterproof_Step9.3_text.mp4","assets/Waterproof/Waterproof_Step9.4_text.mp4"]
 var nonWaterproof = ["assets/Step1.mp4","assets/Non-Waterproof/Step2_NW.mp4","assets/Non-Waterproof/Step3_NW.mp4",
-                     "assets/Non-Waterproof/Non-Waterproof_Step5_text.mp4","assets/Non-Waterproof/Non-Waterproof_Step5.5_text.mp4","assets/Non-Waterproof/Non-Waterproof_Step6_text.mp4"]
-var subNonWaterproof = ["assets/Non-Waterproof/Non-Waterproof_Step4.1_text.mp4","assets/Non-Waterproof/Non-Waterproof_Step4.2_text.mp4","assets/Non-Waterproof/Non-Waterproof_Step4.3_text.mp4","assets/Non-Waterproof/Non-Waterproof_Step4.4_text.mp4",
+                     "assets/Non-Waterproof/Non-Waterproof_Step5_text.mp4","assets/Non-Waterproof/Step5-5_NW.mp4","assets/Non-Waterproof/Non-Waterproof_Step6_text.mp4"]
+var subNonWaterproof = ["assets/Non-Waterproof/Step4-1_NW.mp4","assets/Non-Waterproof/Step4-2_NW.mp4","assets/Non-Waterproof/Step4-3_NW.mp4","assets/Non-Waterproof/Step4-4_NW.mp4",
                         "assets/Non-Waterproof/Non-Waterproof_Step7.1_text.mp4","assets/Non-Waterproof/Non-Waterproof_Step7.2_text.mp4","assets/Non-Waterproof/Non-Waterproof_Step7.3_text.mp4","assets/Non-Waterproof/Non-Waterproof_Step7.4_text.mp4"]
 var waterproofTextures = []
 var nonWaterproofTextures = []
