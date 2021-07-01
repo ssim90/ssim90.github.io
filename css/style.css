@@ -12,6 +12,12 @@
 }
 
 .picturebutton {
-    width: 220px;
-    height: 600px;   
+    width: 240px;
+    height: 700px;   
+}
+
+.headline {
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-size: 50;
 }
