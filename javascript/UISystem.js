@@ -1,5 +1,6 @@
 var menuPlane;
 var menuADT;
+var prevVideoIndex;
 
 function InitializeUI(scene, canvas) {
     var planeOpts = {
@@ -35,25 +36,50 @@ function CreateStartUI (scene, videoPlane) {
     panel = new BABYLON.GUI.StackPanel();
     panel.isVertical = false;
 
-    AddBasicButton("butt1", "Waterproof", panel,
+    function hide() {
+        menuADT.removeControl(image);
+        UICanvas.removeControl(headline);
+        UICanvas.removeControl(subHeadline);
+    }
+
+    var image = new BABYLON.GUI.Image("tex", "assets/Images/SplashPage.png");
+    image.width = "1100px";
+    image.height = "1100px";
+    menuADT.addControl(image);
+
+    var headline = AddHeadline("Melbye Ultima Connect Assembly Guide!");
+    headline.fontSize = 31;
+    headline.top = "-200px";
+    UICanvas.addControl(headline);
+
+    var subHeadline = AddHeadline("Choose installation guide for waterproof or standard installation");
+    subHeadline.fontSize = 20;
+    subHeadline.top = "10px";
+    UICanvas.addControl(subHeadline);
+
+    var wButton = AddBasicButton("butt1", "Waterproof", panel,
     function () {
         videotype = videotypes.WATERPROOF;
         videoTextures = waterproofTextures;
         currentVideo = 0;
         videoPlane.material = SetVideoMaterial(scene);
+        hide();
         HideUI(UICanvas);
         PlayVideo();
     });
+    wButton.top = "100px";
     AddMargin("100px", "50px", panel);
-    AddBasicButton("butt2", "Non-Waterproof", panel,
+    var nwButton = AddBasicButton("butt2", "Non-Waterproof", panel,
     function () {
         videotype = videotypes.NONWATERPROOF;
         videoTextures = nonWaterproofTextures;
         currentVideo = 0;
         videoPlane.material = SetVideoMaterial(scene);
+        hide();
         HideUI(UICanvas);
         PlayVideo();
     });
+    nwButton.top = "100px";
     
     UICanvas.addControl(panel);
 }
@@ -320,6 +346,7 @@ function Create4ButtonSelectionUI2(scene, videoPlane) {
         videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex);
         hideUI();
         PlayVideo();
+        prevVideoIndex = subVideoIndex;
     });
     AddMargin("5px","0px", selectPanel);
     var button2 = addButton("btn1", "Bicycle / Walkway", "assets/Images/Walkway.png", ()=>{
@@ -327,6 +354,7 @@ function Create4ButtonSelectionUI2(scene, videoPlane) {
         videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex + 1);
         hideUI();
         PlayVideo();
+        prevVideoIndex = subVideoIndex + 1;
     });
     AddMargin("5px","0px", selectPanel);
     var button3 = addButton("btn1", "Airport / Harbor", "assets/Images/Airport.png", ()=>{
@@ -334,6 +362,7 @@ function Create4ButtonSelectionUI2(scene, videoPlane) {
         videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex + 2);
         hideUI();
         PlayVideo();
+        prevVideoIndex = subVideoIndex + 2;
     });
     AddMargin("5px","0px", selectPanel);
     var button4 = addButton("btn1", "Green / Outdoor", "assets/Images/Grass.png", ()=>{
@@ -341,6 +370,7 @@ function Create4ButtonSelectionUI2(scene, videoPlane) {
         videoPlane.material = SetSubVideoMaterial(scene, subVideoIndex + 3);
         hideUI();
         PlayVideo();
+        prevVideoIndex = subVideoIndex + 3;
     });
 
     var back = AddBasicButtonOnPlane("back", "Previous", panel, ()=>{
@@ -386,7 +416,26 @@ function CreateEndUI(scene, videoPlane) {
     panel.isVertical = false;
     panel.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
 
-    AddBasicButton("return", "Back", panel, ()=>{
+    var headline = AddHeadline("Installation Complete!");
+    headline .top = "-150px";
+
+
+    AddBasicButtonOnPlane("prev", "Previous", panel, ()=>{
+        menuADT.removeControl(headline);
+        HideUI(UICanvas);
+        stage = stages.SELECT;
+        Create4ButtonSelectionUI2(scene, videoPlane);
+    })
+    AddMargin("50px","50px", panel);
+    AddBasicButtonOnPlane("replay", "Replay", panel, ()=>{
+        menuADT.removeControl(headline);
+        HideUI();
+        videoPlane.material = SetSubVideoMaterial(scene, prevVideoIndex);
+        PlayVideo();
+    })
+    AddMargin("50px","50px", panel);
+    AddBasicButtonOnPlane("back", "Back", panel, ()=>{
+        menuADT.removeControl(headline);
         HideUI(UICanvas);
         ReloadVideo();
         stage = stages.READY;
@@ -395,7 +444,9 @@ function CreateEndUI(scene, videoPlane) {
         CreateStartUI(scene, videoPlane);
     })
 
-    UICanvas.addControl(panel);
+    menuPlane.gui = panel;
+    menuADT.addControl(headline);
+    menuADT.addControl(panel);
 }
 
 function AddHeadline (text) {
