@@ -15,7 +15,7 @@ const createScene =  () => {
     var camera = new BABYLON.ArcRotateCamera("arcR", -Math.PI/2, Math.PI/2, 15, BABYLON.Vector3.Zero(), scene);
     scene.clearColor = new BABYLON.Color3(1, 1, 1);
 
-    /////////////////////// Set up size//////////////////////////////
+    /////////////////////// Set up size////////////////////////////////
     // Portrait
     planeOpts = {
         height: 5.4762, 
@@ -36,7 +36,7 @@ const createScene =  () => {
         planeOpts.height = 10;
     }
 
-    /////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////
     videoPlane = BABYLON.MeshBuilder.CreatePlane("plane", planeOpts, scene);
 
     stage = stages.READY;
